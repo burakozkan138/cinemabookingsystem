@@ -1,5 +1,5 @@
 # Sinema Rezervasyon API
-```Bu proje, sinema rezervasyon işlemlerini yönetmek için bir API sağlar. Projede, Spring Boot kullanılarak bir rest api oluşturulmuştur.```
+Bu proje, sinema rezervasyon işlemlerini yönetmek için bir API sağlar. Projede, Spring Boot kullanılarak bir rest api oluşturulmuştur.
 
 # Kurulum
 Aşağıdaki adımları izleyerek projeyi yerel ortamınızda çalıştırabilirsiniz.
