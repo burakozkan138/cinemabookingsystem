@@ -88,6 +88,14 @@ public class ReservationService {
   public Boolean cancelReservationById(String id) throws BadRequestException {
     Reservation reservation = reservationRepository.findById(id)
         .orElseThrow(() -> new BadRequestException("Reservation not found"));
+    User user = userRepository
+        .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        .orElseThrow(() -> new BadRequestException("User not found"));
+
+    if (!reservation.getUser().equals(user)) {
+      throw new BadRequestException("You can only cancel your own reservations");
+    }
+
     Session session = reservation.getSession();
 
     session.getBookedSeats().remove(reservation.getSeat());

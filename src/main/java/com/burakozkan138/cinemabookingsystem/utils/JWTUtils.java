@@ -24,12 +24,11 @@ public class JWTUtils {
   private final SecretKey SECRET_KEY;
   private final long EXPIRATION_TIME;
 
-  @Autowired
   public JWTUtils(Environment environment) {
     this.environment = environment;
     this.SECRET_KEY = Keys.hmacShaKeyFor(
-        Decoders.BASE64.decode(this.environment.getProperty("jwt.secret.key").repeat(30)));
-    this.EXPIRATION_TIME = this.environment.getProperty("jwt.expiration.time", Long.class);
+        Decoders.BASE64.decode(this.environment.getRequiredProperty("jwt.secret.key").repeat(30)));
+    this.EXPIRATION_TIME = this.environment.getRequiredProperty("jwt.expiration.time", Long.class);
   }
 
   public String genereateToken(User user) {
