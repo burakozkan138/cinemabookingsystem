@@ -55,3 +55,9 @@ Uygulama başarıyla başladıysa, http://localhost:8080 adresinden API'ye eriş
 API'yi kullanarak sinema rezervasyonları oluşturabilir, güncelleyebilir, silebilir ve sorgulayabilirsiniz. API ile ilgili daha fazla bilgi için belgeleri inceleyin.
 ### Postman Koleksiyonu
 API isteklerini kolayca yapabilmek için [Postman koleksiyonunu buradan indirebilirsiniz](https://www.postman.com/cinemabookingsystem/workspace/cinema-booking-system/overview). Bu koleksiyon, API isteklerini yapmanızı sağlayacak hazır yapılandırılmış istekler içerir. ```Kullanmak için environment olarak Testi seçin```
+
+# Admin Bilgileri
+API'ye erişim yetkileri olan bir yönetici kullanıcısını kullanarak özel işlemler gerçekleştirebilirsiniz. Varsayılan yönetici hesabı bilgileri aşağıdaki gibidir:
+- **Kullanıcı Adı:** admin
+- **Şifre:** admin
+Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri gerçekleştirebilirsiniz.
