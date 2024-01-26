@@ -5,6 +5,9 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Env;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +20,16 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JWTUtils {
+  private final Environment environment;
   private final SecretKey SECRET_KEY;
   private final long EXPIRATION_TIME;
 
-  public JWTUtils() {
+  @Autowired
+  public JWTUtils(Environment environment) {
+    this.environment = environment;
     this.SECRET_KEY = Keys.hmacShaKeyFor(
-        Decoders.BASE64.decode("testsecretkey".repeat(30)));
-    this.EXPIRATION_TIME = 86400000L;
+        Decoders.BASE64.decode(this.environment.getProperty("jwt.secret.key").repeat(30)));
+    this.EXPIRATION_TIME = this.environment.getProperty("jwt.expiration.time", Long.class);
   }
 
   public String genereateToken(User user) {

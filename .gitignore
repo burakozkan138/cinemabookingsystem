@@ -50,6 +50,4 @@ buildNumber.properties
 
 ### Properties ###
 *.properties
-!**/src/main/**/application.properties
-!**/src/test/**/application.properties
-!**/src/main/resources/application.properties
+!*.example.properties
