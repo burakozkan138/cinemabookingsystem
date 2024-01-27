@@ -40,15 +40,15 @@ Daha sonra ilgili dosyada JWT ve mongo db için düzeltilmesi gereken alanları 
 Proje dizininde, uygulamayı derleyin:
 ```bash
 mvn clean package
-Bu komut, proje bağımlılıklarını indirir, testleri çalıştırır ve bir JAR dosyası oluşturur.
 ```
+Bu komut, proje bağımlılıklarını indirir, testleri çalıştırır ve bir JAR dosyası oluşturur.
 
 # 6 Adım
 Derleme işlemi tamamlandıktan sonra, uygulamayı başlatmak için aşağıdaki komutu çalıştırın:
-```bash Copy code
+```bash
 java -jar target/sinema-rezervasyon-api.jar
-Uygulama başarıyla başladıysa, http://localhost:8080 adresinden API'ye erişebilirsiniz.
 ```
+Uygulama başarıyla başladıysa, *http://localhost:8080* adresinden API'ye erişebilirsiniz.
 
 
 # Kullanım
@@ -68,4 +68,4 @@ Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri 
 Endpoint: api/v1/auth/register
 Kayıt olma işlemi.
 ```
-![Kayıt Ol](./postman/img1.png)
+![Kayıt Ol](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img1.png)
