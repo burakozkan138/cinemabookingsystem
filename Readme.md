@@ -61,3 +61,11 @@ API'ye erişim yetkileri olan bir yönetici kullanıcısını kullanarak özel i
 - **Kullanıcı Adı:** admin
 - **Şifre:** 123456
 Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri gerçekleştirebilirsiniz.
+
+# Postman İle Gönderilmiş Bazı İstekler
+
+```bash
+Endpoint: api/v1/auth/register
+Kayıt olma işlemi.
+![Kayıt Ol](./postman/img1.png)
+```
