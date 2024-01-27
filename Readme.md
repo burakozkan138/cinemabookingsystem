@@ -64,8 +64,25 @@ Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri 
 
 # Postman İle Gönderilmiş Bazı İstekler
 
-```bash
-Endpoint: api/v1/auth/register
-Kayıt olma işlemi.
-```
+**Kayıt olma işlemi.**
+**Endpoint: api/v1/auth/register**
+
 ![Kayıt Ol](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img1.png)
+
+**Giriş Yapma işlemi.**
+**Endpoint: api/v1/auth/login**
+![Giriş Yap](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img2.png)
+
+**Session Oluşturma işlemi**
+**Endpoint: api/v1/sessions**
+![Session Oluştur](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img3.png)
+
+
+**Reservation Oluşturma işlemi**
+**Endpoint: api/v1/reservations**
+![Reservation Oluştur](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img4.png)
+
+
+**Reservation Oluşturma işlemi Dolu Koltuk Hatası**
+**Endpoint: api/v1/reservations**
+![Reservation Oluştur Ancak Dolu Koltuğa](https://github.com/burakozkan138/cinemabookingsystem/blob/master/postman/img5.png)
