@@ -79,7 +79,7 @@ public class ReservationService {
 
     reservationRepository.save(reservation);
 
-    session.getBookedSeats().add(new Point(reservationCreateRequestDto.getX(), reservationCreateRequestDto.getY()));
+    session.getBookedSeats().add(reservation.getSeat());
     sessionRepository.save(session);
 
     return modelMapper.map(reservation, ReservationResponseDto.class);

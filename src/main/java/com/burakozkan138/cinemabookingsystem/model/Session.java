@@ -23,7 +23,7 @@ public class Session extends BaseEntity {
   private Hall hall;
   private double price;
   private int maxCapacity;
-  private Set<Point> bookedSeats;
+  private List<Point> bookedSeats = List.of();
   @DBRef
   private List<Reservation> reservations;
 }

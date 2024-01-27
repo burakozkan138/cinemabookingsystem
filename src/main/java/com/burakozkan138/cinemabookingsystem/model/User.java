@@ -24,7 +24,7 @@ public class User extends BaseEntity implements UserDetails {
   private String firstName;
   private String lastName;
   private Set<Role> roles = Set.of(new Role(Role.ROLE_USER));
-  private List<Reservation> reservations;
+  private List<Reservation> reservations = List.of();
   private boolean enabled = true;
 
   @Override

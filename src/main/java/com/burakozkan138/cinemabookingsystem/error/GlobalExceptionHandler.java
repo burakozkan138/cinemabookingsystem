@@ -51,13 +51,13 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ResponseEntity<ErrorResponseDto<String>> handleExceptions(Exception ex) {
     var response = new ErrorResponseDto<String>(
         ex.getMessage(),
         "Forbidden",
         false,
-        HttpStatus.FORBIDDEN.value());
+        HttpStatus.INTERNAL_SERVER_ERROR.value());
 
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
