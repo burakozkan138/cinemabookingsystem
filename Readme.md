@@ -59,5 +59,5 @@ API isteklerini kolayca yapabilmek için [Postman koleksiyonunu buradan indirebi
 # Admin Bilgileri
 API'ye erişim yetkileri olan bir yönetici kullanıcısını kullanarak özel işlemler gerçekleştirebilirsiniz. Varsayılan yönetici hesabı bilgileri aşağıdaki gibidir:
 - **Kullanıcı Adı:** admin
-- **Şifre:** admin
+- **Şifre:** 123456
 Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri gerçekleştirebilirsiniz.
