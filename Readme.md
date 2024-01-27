@@ -67,5 +67,5 @@ Bu bilgileri kullanarak API'ye yönetici olarak erişebilir ve özel işlemleri 
 ```bash
 Endpoint: api/v1/auth/register
 Kayıt olma işlemi.
-![Kayıt Ol](./postman/img1.png)
 ```
+![Kayıt Ol](./postman/img1.png)
