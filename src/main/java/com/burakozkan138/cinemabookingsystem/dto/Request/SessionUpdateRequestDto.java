@@ -13,7 +13,7 @@ import lombok.Setter;
 public class SessionUpdateRequestDto {
   @FutureOrPresent(message = "Date cannot be in the past")
   private LocalDate date;
-  private LocalTime time;
+  private LocalTime startTime;
   @Positive(message = "Price must be positive")
   private double price;
   private String movieId;

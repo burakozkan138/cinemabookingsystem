@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.HallCreateRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Request.HallUpdateRequestDto;
-import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponseDto;
+import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponse;
 import com.burakozkan138.cinemabookingsystem.dto.Response.HallResponseDto;
 import com.burakozkan138.cinemabookingsystem.service.HallService;
 
@@ -31,36 +31,36 @@ public class HallController {
   private final HallService hallService;
 
   @GetMapping // get all halls
-  public BaseResponseDto<List<HallResponseDto>> getAllHalls() {
+  public BaseResponse<List<HallResponseDto>> getAllHalls() {
     List<HallResponseDto> halls = hallService.getAllHalls();
-    return new BaseResponseDto<List<HallResponseDto>>(halls, "Halls fetched successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(halls, "Halls fetched successfully", true, HttpStatus.OK);
   }
 
   @GetMapping("/{id}") // get hall by id
-  public BaseResponseDto<HallResponseDto> getHallById(@PathVariable String id)
+  public BaseResponse<HallResponseDto> getHallById(@PathVariable String id)
       throws BadRequestException {
     HallResponseDto hall = hallService.getHallById(id);
-    return new BaseResponseDto<HallResponseDto>(hall, "Hall fetched successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(hall, "Hall fetched successfully", true, HttpStatus.OK);
   }
 
   @PostMapping // create hall
-  public BaseResponseDto<HallResponseDto> createHall(
+  public BaseResponse<HallResponseDto> createHall(
       @Valid @RequestBody HallCreateRequestDto hallCreateRequestDto) {
 
     HallResponseDto hall = hallService.createHall(hallCreateRequestDto);
-    return new BaseResponseDto<HallResponseDto>(hall, "Hall created successfully", true, HttpStatus.CREATED);
+    return new BaseResponse<>(hall, "Hall created successfully", true, HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}") // update hall
-  public BaseResponseDto<HallResponseDto> updateHall(@PathVariable String id,
+  public BaseResponse<HallResponseDto> updateHall(@PathVariable String id,
       @Valid @RequestBody HallUpdateRequestDto hallUpdateRequestDto) {
     HallResponseDto hall = hallService.updateHall(id, hallUpdateRequestDto);
-    return new BaseResponseDto<>(hall, "Hall updated successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(hall, "Hall updated successfully", true, HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}") // delete hall
-  public BaseResponseDto<Boolean> deleteHall(@PathVariable String id) {
+  public BaseResponse<Boolean> deleteHall(@PathVariable String id) {
     Boolean data = hallService.deleteHall(id);
-    return new BaseResponseDto<>(data, "Hall deleted successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(data, "Hall deleted successfully", true, HttpStatus.OK);
   }
 }

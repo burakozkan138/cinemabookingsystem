@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.burakozkan138.cinemabookingsystem.dto.Request.LoginUserRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Request.RegisterUserRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Response.AuthResponseDto;
-import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponseDto;
+import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponse;
 import com.burakozkan138.cinemabookingsystem.service.UserService;
 
 import jakarta.validation.Valid;
@@ -23,16 +23,16 @@ public class AuthController {
   private final UserService userService;
 
   @PostMapping("/login")
-  public BaseResponseDto<AuthResponseDto> login(
+  public BaseResponse<AuthResponseDto> login(
       @Valid @RequestBody LoginUserRequestDto loginUserRequestDto) throws BadRequestException {
     AuthResponseDto response = userService.login(loginUserRequestDto);
-    return new BaseResponseDto<>(response, "Login successful", true, HttpStatus.OK);
+    return new BaseResponse<>(response, "Login successful", true, HttpStatus.OK);
   }
 
   @PostMapping("/register")
-  public BaseResponseDto<AuthResponseDto> register(
+  public BaseResponse<AuthResponseDto> register(
       @Valid @RequestBody RegisterUserRequestDto registerUserRequestDto) throws BadRequestException {
     AuthResponseDto response = userService.register(registerUserRequestDto);
-    return new BaseResponseDto<>(response, "Register successful", true, HttpStatus.OK);
+    return new BaseResponse<>(response, "Register successful", true, HttpStatus.OK);
   }
 }

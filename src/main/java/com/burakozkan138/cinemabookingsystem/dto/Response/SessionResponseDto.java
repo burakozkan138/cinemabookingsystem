@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SessionResponseDto {
   private String id;
   private LocalDate date;
-  private LocalTime time;
+  private LocalTime startTime;
   private int maxCapacity;
   private MovieResponseDto movie;
   private HallResponseDto hall;

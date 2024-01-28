@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.MovieCreateRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Request.MovieUpdateRequestDto;
-import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponseDto;
+import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponse;
 import com.burakozkan138.cinemabookingsystem.dto.Response.MovieResponseDto;
 import com.burakozkan138.cinemabookingsystem.service.MovieService;
 
@@ -31,42 +31,41 @@ public class MovieController {
   private final MovieService movieService;
 
   @GetMapping // get all movies
-  public BaseResponseDto<List<MovieResponseDto>> getAllMovies() {
+  public BaseResponse<List<MovieResponseDto>> getAllMovies() {
     List<MovieResponseDto> movies = movieService.getAllMovies();
-    return new BaseResponseDto<List<MovieResponseDto>>(movies, "Movies fetched successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(movies, "Movies fetched successfully", true, HttpStatus.OK);
   }
 
   @GetMapping("/{id}") // get movie by id
-  public BaseResponseDto<MovieResponseDto> getMovieById(@PathVariable String id)
+  public BaseResponse<MovieResponseDto> getMovieById(@PathVariable String id)
       throws BadRequestException {
     MovieResponseDto movie = movieService.getMovieById(id);
-    return new BaseResponseDto<MovieResponseDto>(movie, "Movie fetched successfully", true, HttpStatus.OK);
+    return new BaseResponse<MovieResponseDto>(movie, "Movie fetched successfully", true, HttpStatus.OK);
   }
 
   @PostMapping // add movie
   @RolesAllowed("ADMIN")
-  public BaseResponseDto<MovieResponseDto> addMovie(
+  public BaseResponse<MovieResponseDto> addMovie(
       @Valid @RequestBody MovieCreateRequestDto movieCreateRequestDto)
       throws BadRequestException {
 
     MovieResponseDto movie = movieService.createMovie(movieCreateRequestDto);
-    return new BaseResponseDto<MovieResponseDto>(movie, "Movie created successfully", true, HttpStatus.CREATED);
+    return new BaseResponse<>(movie, "Movie created successfully", true, HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}") // update movie
   @RolesAllowed("ADMIN")
-  public BaseResponseDto<MovieResponseDto> updateMovie(@PathVariable String id,
+  public BaseResponse<MovieResponseDto> updateMovie(@PathVariable String id,
       @Valid @RequestBody MovieUpdateRequestDto movieUpdateRequestDto)
       throws BadRequestException {
     MovieResponseDto movie = movieService.updateMovie(id, movieUpdateRequestDto);
-    return new BaseResponseDto<>(movie, "Movie updated successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(movie, "Movie updated successfully", true, HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}") // delete movie
   @RolesAllowed("ADMIN")
-  public BaseResponseDto<Boolean> deleteMovie(@PathVariable String id) throws BadRequestException {
-
+  public BaseResponse<Boolean> deleteMovie(@PathVariable String id) throws BadRequestException {
     Boolean data = movieService.deleteMovie(id);
-    return new BaseResponseDto<>(data, "Movie deleted successfully", true, HttpStatus.OK);
+    return new BaseResponse<>(data, "Movie deleted successfully", true, HttpStatus.OK);
   }
 }

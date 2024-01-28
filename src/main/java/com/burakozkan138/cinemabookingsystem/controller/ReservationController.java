@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.ReservationCreateRequestDto;
-import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponseDto;
+import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponse;
 import com.burakozkan138.cinemabookingsystem.dto.Response.ReservationResponseDto;
 import com.burakozkan138.cinemabookingsystem.service.ReservationService;
 
@@ -30,38 +30,38 @@ public class ReservationController {
         private final ReservationService reservationService;
 
         @GetMapping
-        public BaseResponseDto<List<ReservationResponseDto>> getMyReservations()
+        public BaseResponse<List<ReservationResponseDto>> getMyReservations()
                         throws BadRequestException {
                 List<ReservationResponseDto> reservations = reservationService.getMyReservations();
-                return new BaseResponseDto<>(reservations, "Reservations fetched successfully", true, HttpStatus.OK);
+                return new BaseResponse<>(reservations, "Reservations fetched successfully", true, HttpStatus.OK);
         }
 
         @GetMapping("/all")
         @RolesAllowed("ADMIN")
-        public BaseResponseDto<List<ReservationResponseDto>> getAllReservations() {
+        public BaseResponse<List<ReservationResponseDto>> getAllReservations() {
                 List<ReservationResponseDto> reservations = reservationService.getAllReservations();
-                return new BaseResponseDto<>(reservations, "Reservations fetched successfully", true, HttpStatus.OK);
+                return new BaseResponse<>(reservations, "Reservations fetched successfully", true, HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
-        public BaseResponseDto<ReservationResponseDto> getReservationById(@PathVariable String id)
+        public BaseResponse<ReservationResponseDto> getReservationById(@PathVariable String id)
                         throws BadRequestException {
                 ReservationResponseDto reservation = reservationService.getReservationById(id);
-                return new BaseResponseDto<>(reservation, "Reservation fetched successfully", true, HttpStatus.OK);
+                return new BaseResponse<>(reservation, "Reservation fetched successfully", true, HttpStatus.OK);
         }
 
         @PostMapping
-        public BaseResponseDto<ReservationResponseDto> createReservation(
+        public BaseResponse<ReservationResponseDto> createReservation(
                         @Valid @RequestBody ReservationCreateRequestDto reservationCreateRequestDto)
                         throws BadRequestException {
                 ReservationResponseDto reservation = reservationService.createReservation(reservationCreateRequestDto);
-                return new BaseResponseDto<>(reservation, "Reservation created successfully", true, HttpStatus.CREATED);
+                return new BaseResponse<>(reservation, "Reservation created successfully", true, HttpStatus.CREATED);
         }
 
         @PatchMapping("/{id}/cancel")
-        public BaseResponseDto<Boolean> cancelReservationById(@PathVariable String id)
+        public BaseResponse<Boolean> cancelReservationById(@PathVariable String id)
                         throws BadRequestException {
                 Boolean data = reservationService.cancelReservationById(id);
-                return new BaseResponseDto<>(data, "Reservation cancelled successfully", true, HttpStatus.OK);
+                return new BaseResponse<>(data, "Reservation cancelled successfully", true, HttpStatus.OK);
         }
 }
