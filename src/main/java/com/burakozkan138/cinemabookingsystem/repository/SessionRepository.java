@@ -12,4 +12,7 @@ import com.burakozkan138.cinemabookingsystem.model.Session;
 public interface SessionRepository extends MongoRepository<Session, String> {
   @Query("{'date': {$eq: ?0}, 'startTime': {$gte: ?1, $lte: ?2}, 'hall.id': ?3}")
   List<Session> findByTimestampBetween(LocalDate date, LocalTime startTime, LocalTime endTime, String hallId);
+
+  @Query("{$and: [{'date': {$lte: ?0}}, {'endTime': {$lte: ?1}}]}")
+  List<Session> deleteAllByDateandEndTimeBefore(LocalDate date, LocalTime time);
 }
