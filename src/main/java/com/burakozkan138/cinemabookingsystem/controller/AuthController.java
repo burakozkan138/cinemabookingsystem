@@ -2,7 +2,6 @@ package com.burakozkan138.cinemabookingsystem.controller;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +23,16 @@ public class AuthController {
   private final UserService userService;
 
   @PostMapping("/login")
-  public ResponseEntity<BaseResponseDto<AuthResponseDto>> login(
+  public BaseResponseDto<AuthResponseDto> login(
       @Valid @RequestBody LoginUserRequestDto loginUserRequestDto) throws BadRequestException {
     AuthResponseDto response = userService.login(loginUserRequestDto);
-    return new ResponseEntity<BaseResponseDto<AuthResponseDto>>(
-        new BaseResponseDto<>(response, "Login successful", true, HttpStatus.OK.value()), HttpStatus.OK);
+    return new BaseResponseDto<>(response, "Login successful", true, HttpStatus.OK);
   }
 
   @PostMapping("/register")
-  public ResponseEntity<BaseResponseDto<AuthResponseDto>> register(
+  public BaseResponseDto<AuthResponseDto> register(
       @Valid @RequestBody RegisterUserRequestDto registerUserRequestDto) throws BadRequestException {
     AuthResponseDto response = userService.register(registerUserRequestDto);
-    return new ResponseEntity<BaseResponseDto<AuthResponseDto>>(
-        new BaseResponseDto<>(response, "Register successful", true, HttpStatus.OK.value()), HttpStatus.OK);
+    return new BaseResponseDto<>(response, "Register successful", true, HttpStatus.OK);
   }
 }

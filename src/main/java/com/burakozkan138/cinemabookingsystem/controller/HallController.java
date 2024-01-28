@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,46 +31,36 @@ public class HallController {
   private final HallService hallService;
 
   @GetMapping // get all halls
-  public ResponseEntity<BaseResponseDto<List<HallResponseDto>>> getAllHalls() {
+  public BaseResponseDto<List<HallResponseDto>> getAllHalls() {
     List<HallResponseDto> halls = hallService.getAllHalls();
-    return new ResponseEntity<>(
-        new BaseResponseDto<List<HallResponseDto>>(halls, "Halls fetched successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<List<HallResponseDto>>(halls, "Halls fetched successfully", true, HttpStatus.OK);
   }
 
   @GetMapping("/{id}") // get hall by id
-  public ResponseEntity<BaseResponseDto<HallResponseDto>> getHallById(@PathVariable String id)
+  public BaseResponseDto<HallResponseDto> getHallById(@PathVariable String id)
       throws BadRequestException {
     HallResponseDto hall = hallService.getHallById(id);
-    return new ResponseEntity<>(
-        new BaseResponseDto<HallResponseDto>(hall, "Hall fetched successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<HallResponseDto>(hall, "Hall fetched successfully", true, HttpStatus.OK);
   }
 
   @PostMapping // create hall
-  public ResponseEntity<BaseResponseDto<HallResponseDto>> createHall(
+  public BaseResponseDto<HallResponseDto> createHall(
       @Valid @RequestBody HallCreateRequestDto hallCreateRequestDto) {
 
     HallResponseDto hall = hallService.createHall(hallCreateRequestDto);
-    return new ResponseEntity<>(
-        new BaseResponseDto<HallResponseDto>(hall, "Hall created successfully", true, HttpStatus.CREATED.value()),
-        HttpStatus.CREATED);
+    return new BaseResponseDto<HallResponseDto>(hall, "Hall created successfully", true, HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}") // update hall
-  public ResponseEntity<BaseResponseDto<HallResponseDto>> updateHall(@PathVariable String id,
+  public BaseResponseDto<HallResponseDto> updateHall(@PathVariable String id,
       @Valid @RequestBody HallUpdateRequestDto hallUpdateRequestDto) {
     HallResponseDto hall = hallService.updateHall(id, hallUpdateRequestDto);
-    return new ResponseEntity<>(
-        new BaseResponseDto<>(hall, "Hall updated successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<>(hall, "Hall updated successfully", true, HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}") // delete hall
-  public ResponseEntity<BaseResponseDto<Boolean>> deleteHall(@PathVariable String id) {
+  public BaseResponseDto<Boolean> deleteHall(@PathVariable String id) {
     Boolean data = hallService.deleteHall(id);
-    return new ResponseEntity<>(
-        new BaseResponseDto<>(data, "Hall deleted successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<>(data, "Hall deleted successfully", true, HttpStatus.OK);
   }
 }

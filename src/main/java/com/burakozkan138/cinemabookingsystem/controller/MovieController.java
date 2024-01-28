@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,51 +31,42 @@ public class MovieController {
   private final MovieService movieService;
 
   @GetMapping // get all movies
-  public ResponseEntity<BaseResponseDto<List<MovieResponseDto>>> getAllMovies() {
+  public BaseResponseDto<List<MovieResponseDto>> getAllMovies() {
     List<MovieResponseDto> movies = movieService.getAllMovies();
-    return new ResponseEntity<>(
-        new BaseResponseDto<List<MovieResponseDto>>(movies, "Movies fetched successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<List<MovieResponseDto>>(movies, "Movies fetched successfully", true, HttpStatus.OK);
   }
 
   @GetMapping("/{id}") // get movie by id
-  public ResponseEntity<BaseResponseDto<MovieResponseDto>> getMovieById(@PathVariable String id)
+  public BaseResponseDto<MovieResponseDto> getMovieById(@PathVariable String id)
       throws BadRequestException {
     MovieResponseDto movie = movieService.getMovieById(id);
-    return new ResponseEntity<>(new BaseResponseDto<MovieResponseDto>(
-        movie, "Movie fetched successfully", true,
-        HttpStatus.OK.value()), HttpStatus.OK);
+    return new BaseResponseDto<MovieResponseDto>(movie, "Movie fetched successfully", true, HttpStatus.OK);
   }
 
   @PostMapping // add movie
   @RolesAllowed("ADMIN")
-  public ResponseEntity<BaseResponseDto<MovieResponseDto>> addMovie(
+  public BaseResponseDto<MovieResponseDto> addMovie(
       @Valid @RequestBody MovieCreateRequestDto movieCreateRequestDto)
       throws BadRequestException {
 
     MovieResponseDto movie = movieService.createMovie(movieCreateRequestDto);
-    return new ResponseEntity<>(
-        new BaseResponseDto<MovieResponseDto>(movie, "Movie created successfully", true, HttpStatus.CREATED.value()),
-        HttpStatus.CREATED);
+    return new BaseResponseDto<MovieResponseDto>(movie, "Movie created successfully", true, HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}") // update movie
   @RolesAllowed("ADMIN")
-  public ResponseEntity<BaseResponseDto<MovieResponseDto>> updateMovie(@PathVariable String id,
+  public BaseResponseDto<MovieResponseDto> updateMovie(@PathVariable String id,
       @Valid @RequestBody MovieUpdateRequestDto movieUpdateRequestDto)
       throws BadRequestException {
     MovieResponseDto movie = movieService.updateMovie(id, movieUpdateRequestDto);
-    return new ResponseEntity<>(new BaseResponseDto<>(movie, "Movie updated successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<>(movie, "Movie updated successfully", true, HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}") // delete movie
   @RolesAllowed("ADMIN")
-  public ResponseEntity<BaseResponseDto<Boolean>> deleteMovie(@PathVariable String id) throws BadRequestException {
+  public BaseResponseDto<Boolean> deleteMovie(@PathVariable String id) throws BadRequestException {
 
     Boolean data = movieService.deleteMovie(id);
-    return new ResponseEntity<>(new BaseResponseDto<>(
-        data, "Movie deleted successfully", true, HttpStatus.OK.value()),
-        HttpStatus.OK);
+    return new BaseResponseDto<>(data, "Movie deleted successfully", true, HttpStatus.OK);
   }
 }
