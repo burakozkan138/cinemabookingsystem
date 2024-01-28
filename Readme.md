@@ -46,7 +46,7 @@ Bu komut, proje bağımlılıklarını indirir, testleri çalıştırır ve bir 
 # 6 Adım
 Derleme işlemi tamamlandıktan sonra, uygulamayı başlatmak için aşağıdaki komutu çalıştırın:
 ```bash
-java -jar target/sinema-rezervasyon-api.jar
+java -jar target/cinemabookingsystem.jar
 ```
 Uygulama başarıyla başladıysa, *http://localhost:8080* adresinden API'ye erişebilirsiniz.
 
