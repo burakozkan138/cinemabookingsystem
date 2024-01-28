@@ -55,7 +55,6 @@ public class SessionService {
     Hall hall = hallRepository.findById(createSessionRequestDto.getHallId())
         .orElseThrow(() -> new BadRequestException("Hall not found"));
 
-    int maxCapacity = hall.getMaxColumn() * hall.getMaxRow();
     List<Session> mappedSessions = new ArrayList<>();
 
     for (LocalTime startTime : createSessionRequestDto.getTimes()) {
@@ -73,7 +72,7 @@ public class SessionService {
       mappedSession.setHall(hall);
       mappedSession.setStartTime(startTime);
       mappedSession.setEndTime(endTime);
-      mappedSession.setMaxCapacity(maxCapacity);
+      mappedSession.setMaxCapacity(calculateMaxCapacity(hall));
 
       mappedSessions.add(mappedSession);
     }
@@ -85,6 +84,19 @@ public class SessionService {
   public SessionResponseDto updateSession(String id, SessionUpdateRequestDto sessionUpdateRequestDto)
       throws BadRequestException {
     Session session = sessionRepository.findById(id).orElseThrow(() -> new BadRequestException("Session not found"));
+
+    if (sessionUpdateRequestDto.getMovieId() != null) {
+      Movie movie = movieRepository.findById(sessionUpdateRequestDto.getMovieId())
+          .orElseThrow(() -> new BadRequestException("Movie not found"));
+      session.setMovie(movie);
+    }
+
+    if (sessionUpdateRequestDto.getHallId() != null) {
+      Hall hall = hallRepository.findById(sessionUpdateRequestDto.getHallId())
+          .orElseThrow(() -> new BadRequestException("Hall not found"));
+      session.setHall(hall);
+      session.setMaxCapacity(calculateMaxCapacity(hall));
+    }
 
     Session mappedSession = modelMapper.map(sessionUpdateRequestDto, Session.class);
     mappedSession.setMovie(session.getMovie());
@@ -100,5 +112,9 @@ public class SessionService {
     Session session = sessionRepository.findById(id).orElseThrow(() -> new BadRequestException("Session not found"));
     sessionRepository.delete(session);
     return true;
+  }
+
+  private int calculateMaxCapacity(Hall hall) {
+    return hall.getMaxColumn() * hall.getMaxRow();
   }
 }
