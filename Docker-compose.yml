@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SERVER_SERVLET_CONTEXT_PATH=/api/v1
+        - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/
+        - SPRING_DATA_MONGODB_DATABASE=cinemabookingsystem
+        - JWT_SECRET_KEY=mysecretkey
+        - JWT_EXPIRATION_TIME=86400000
+    container_name: cinemabookingsystem-app
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    volumes:
+      - app:/app
+    networks:
+      - app-network
+  mongo:
+    image: mongo
+    container_name: cinemabookingsystem-mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  data:
+  app:
+
+
+networks:
+  app-network:
+    driver: bridge

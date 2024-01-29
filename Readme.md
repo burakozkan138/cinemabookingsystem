@@ -10,46 +10,38 @@ Maven yüklü olmalıdır.
 MongoDB
 
 # 1 Adım
-Docker kullanarak gerekli olan mongodb sunucusu ayağa kaldırın.
-
-```bash
-docker run --name mongo-db -p 27017:27017 -d mongo
-```
-# 2 Adım 
-Bu deponun klonlanması
+Bu depoyu klonlamak için aşağıdaki komutu kullanabilirsiniz:
 ```bash
 git clone https://github.com/burakozkan138/cinemabookingsystem.git
 ```
 
-# 3 Adım
+# 2 Adım
 Öncelikle projenin bulunduğu dizine gidin.
 ```bash
 cd cinemabookingsystem
 ```
 
+# 3 Adım
+İlk olarak aşağıdaki komotu kullanarak docker compose ile birlikte projemizi build edelim.
+```bash
+docker-compose build --build-arg JWT_SECRET_KEY=mysecretsecretkey
+```
+Ekleyebileceğiniz diğer argumanlar ve örnek değerleri.
+```
+SERVER_SERVLET_CONTEXT_PATH=/api/v1
+SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/
+SPRING_DATA_MONGODB_DATABASE=cinemabookingsystem
+JWT_SECRET_KEY=mysecretkey
+JWT_EXPIRATION_TIME=86400000
+```
+
 # 4 Adım
-Şimdi, gerekli ayarları içeren properties dosyasını kopyalayın.
+Ve daha sonra alttaki komutu kullanarak uygulamamızı ayağa kaldırıyoruz.
 ```bash
-copy src/main/resources/application.example.properties src/main/resources/application.properties
-```
-Daha sonra ilgili dosyada JWT ve mongo db için düzeltilmesi gereken alanları düzeltin.
-
-# Uygulamanın Derlenmesi ve Çalıştırılması
-
-# 5 Adım
-Proje dizininde, uygulamayı derleyin:
-```bash
-mvn clean package
-```
-Bu komut, proje bağımlılıklarını indirir, testleri çalıştırır ve bir JAR dosyası oluşturur.
-
-# 6 Adım
-Derleme işlemi tamamlandıktan sonra, uygulamayı başlatmak için aşağıdaki komutu çalıştırın:
-```bash
-java -jar target/cinemabookingsystem.jar
+docker-compose up -d
 ```
 Uygulama başarıyla başladıysa, *http://localhost:8080* adresinden API'ye erişebilirsiniz.
-
+ayrıca 27017 portu üzerinde mongodb'ye erişebilirsiniz.
 
 # Kullanım
 API'yi kullanarak sinema rezervasyonları oluşturabilir, güncelleyebilir, silebilir ve sorgulayabilirsiniz. API ile ilgili daha fazla bilgi için belgeleri inceleyin.
