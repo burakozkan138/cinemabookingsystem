@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.ReservationCreateRequestDto;
+import com.burakozkan138.cinemabookingsystem.dto.Request.ReservationUpdateRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Response.ReservationResponseDto;
 import com.burakozkan138.cinemabookingsystem.model.Point;
 import com.burakozkan138.cinemabookingsystem.model.Reservation;
@@ -18,7 +19,6 @@ import com.burakozkan138.cinemabookingsystem.repository.ReservationRepository;
 import com.burakozkan138.cinemabookingsystem.repository.SessionRepository;
 import com.burakozkan138.cinemabookingsystem.repository.UserRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -54,7 +54,7 @@ public class ReservationService {
     return modelMapper.map(reservation, ReservationResponseDto.class);
   }
 
-  public ReservationResponseDto createReservation(@Valid ReservationCreateRequestDto reservationCreateRequestDto)
+  public ReservationResponseDto createReservation(ReservationCreateRequestDto reservationCreateRequestDto)
       throws BadRequestException {
     Session session = sessionRepository.findById(reservationCreateRequestDto.getSessionId())
         .orElseThrow(() -> new BadRequestException("Session not found"));
@@ -103,6 +103,32 @@ public class ReservationService {
 
     reservationRepository.delete(reservation);
     return true;
+  }
+
+  public ReservationResponseDto updateReservationById(String id,
+      ReservationUpdateRequestDto reservationCreateRequestDto) throws BadRequestException {
+    Reservation reservation = reservationRepository.findById(id)
+        .orElseThrow(() -> new BadRequestException("Reservation not found"));
+    Session session = reservation.getSession();
+    User user = userRepository
+        .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+        .orElseThrow(() -> new BadRequestException("User not found"));
+
+    if (!reservation.getUser().equals(user)) {
+      throw new BadRequestException("You can only update your own reservations");
+    }
+
+    Point newSeat = new Point(reservationCreateRequestDto.getX(), reservationCreateRequestDto.getY());
+    if (session.getBookedSeats().contains(newSeat)) {
+      throw new BadRequestException("Seat is already booked");
+    }
+
+    session.getBookedSeats().remove(reservation.getSeat());
+    reservation.setSeat(newSeat);
+    sessionRepository.save(session);
+    reservationRepository.save(reservation);
+
+    return modelMapper.map(reservation, ReservationResponseDto.class);
   }
 
 }

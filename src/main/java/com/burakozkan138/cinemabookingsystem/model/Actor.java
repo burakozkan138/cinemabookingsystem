@@ -1,7 +1,7 @@
 package com.burakozkan138.cinemabookingsystem.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,5 +19,5 @@ public class Actor extends BaseEntity {
   private String biography;
   private String imageUrl = "default_actor.png";
   @DBRef
-  private List<Movie> movies = List.of();
+  private ArrayList<Movie> movies = new ArrayList<>();
 }

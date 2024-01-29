@@ -68,5 +68,4 @@ public class ActorService {
     actorRepository.delete(actor);
     return true;
   }
-
 }

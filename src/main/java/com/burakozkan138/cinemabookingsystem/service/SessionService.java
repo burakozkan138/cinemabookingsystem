@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.SessionCreateRequestDto;

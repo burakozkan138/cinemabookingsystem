@@ -12,7 +12,6 @@ import com.burakozkan138.cinemabookingsystem.dto.Response.HallResponseDto;
 import com.burakozkan138.cinemabookingsystem.model.Hall;
 import com.burakozkan138.cinemabookingsystem.repository.HallRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -46,7 +45,7 @@ public class HallService {
     return modelMapper.map(hall, HallResponseDto.class);
   }
 
-  public HallResponseDto updateHall(String id, @Valid HallUpdateRequestDto hallUpdateRequestDto) {
+  public HallResponseDto updateHall(String id, HallUpdateRequestDto hallUpdateRequestDto) {
     Hall hall = hallRepository.findById(id).orElseThrow(() -> new RuntimeException("Hall not found."));
     modelMapper.getConfiguration().setSkipNullEnabled(true);
     modelMapper.map(hallUpdateRequestDto, hall);

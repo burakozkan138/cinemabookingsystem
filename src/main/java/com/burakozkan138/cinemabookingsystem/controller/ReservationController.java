@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.burakozkan138.cinemabookingsystem.dto.Request.ReservationCreateRequestDto;
+import com.burakozkan138.cinemabookingsystem.dto.Request.ReservationUpdateRequestDto;
 import com.burakozkan138.cinemabookingsystem.dto.Response.BaseResponse;
 import com.burakozkan138.cinemabookingsystem.dto.Response.ReservationResponseDto;
 import com.burakozkan138.cinemabookingsystem.service.ReservationService;
@@ -21,6 +22,7 @@ import com.burakozkan138.cinemabookingsystem.service.ReservationService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,7 +60,16 @@ public class ReservationController {
                 return new BaseResponse<>(reservation, "Reservation created successfully", true, HttpStatus.CREATED);
         }
 
-        @PatchMapping("/{id}/cancel")
+        @PutMapping("/{id}")
+        public BaseResponse<ReservationResponseDto> updateReservation(@PathVariable String id,
+                        @Valid @RequestBody ReservationUpdateRequestDto reservationCreateRequestDto)
+                        throws BadRequestException {
+                ReservationResponseDto reservation = reservationService.updateReservationById(id,
+                                reservationCreateRequestDto);
+                return new BaseResponse<>(reservation, "Reservation updated successfully", true, HttpStatus.OK);
+        }
+
+        @DeleteMapping("/{id}/cancel")
         public BaseResponse<Boolean> cancelReservationById(@PathVariable String id)
                         throws BadRequestException {
                 Boolean data = reservationService.cancelReservationById(id);

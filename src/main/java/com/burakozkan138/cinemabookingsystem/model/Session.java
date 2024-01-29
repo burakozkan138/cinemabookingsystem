@@ -2,7 +2,7 @@ package com.burakozkan138.cinemabookingsystem.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,7 +23,7 @@ public class Session extends BaseEntity {
   private Hall hall;
   private double price;
   private int maxCapacity;
-  private List<Point> bookedSeats = List.of();
+  private ArrayList<Point> bookedSeats = new ArrayList<>();
   @DBRef
-  private List<Reservation> reservations;
+  private ArrayList<Reservation> reservations;
 }

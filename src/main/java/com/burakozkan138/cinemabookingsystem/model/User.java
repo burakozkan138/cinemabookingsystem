@@ -1,7 +1,7 @@
 package com.burakozkan138.cinemabookingsystem.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -24,7 +24,7 @@ public class User extends BaseEntity implements UserDetails {
   private String firstName;
   private String lastName;
   private Set<Role> roles = Set.of(new Role(Role.ROLE_USER));
-  private List<Reservation> reservations = List.of();
+  private ArrayList<Reservation> reservations = new ArrayList<>();
   private boolean enabled = true;
 
   @Override

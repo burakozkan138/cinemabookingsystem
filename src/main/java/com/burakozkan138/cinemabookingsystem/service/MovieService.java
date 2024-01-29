@@ -12,7 +12,6 @@ import com.burakozkan138.cinemabookingsystem.dto.Response.MovieResponseDto;
 import com.burakozkan138.cinemabookingsystem.model.Movie;
 import com.burakozkan138.cinemabookingsystem.repository.MovieRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -47,7 +46,7 @@ public class MovieService {
     return modelMapper.map(createdMovie, MovieResponseDto.class);
   }
 
-  public MovieResponseDto updateMovie(String id, @Valid MovieUpdateRequestDto movieUpdateRequestDto)
+  public MovieResponseDto updateMovie(String id, MovieUpdateRequestDto movieUpdateRequestDto)
       throws BadRequestException {
     Movie movie = movieRepository.findById(id).orElseThrow(() -> new BadRequestException("Movie not found."));
 

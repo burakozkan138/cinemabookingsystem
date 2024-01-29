@@ -16,7 +16,6 @@ import com.burakozkan138.cinemabookingsystem.model.User;
 import com.burakozkan138.cinemabookingsystem.repository.UserRepository;
 import com.burakozkan138.cinemabookingsystem.utils.JWTUtils;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,7 +32,7 @@ public class UserService implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
   }
 
-  public AuthResponseDto login(@Valid LoginUserRequestDto loginUserRequestDto) throws BadRequestException {
+  public AuthResponseDto login(LoginUserRequestDto loginUserRequestDto) throws BadRequestException {
     User user = userRepository.findByUsername(loginUserRequestDto.getUsername())
         .orElseThrow(
             () -> new UsernameNotFoundException("User not found with username: " + loginUserRequestDto.getUsername()));
@@ -50,7 +49,7 @@ public class UserService implements UserDetailsService {
     return new AuthResponseDto(accessToken, refreshToken, userResponseDto);
   }
 
-  public AuthResponseDto register(@Valid RegisterUserRequestDto registerUserRequestDto)
+  public AuthResponseDto register(RegisterUserRequestDto registerUserRequestDto)
       throws BadRequestException {
     if (userRepository.existsByUsername(registerUserRequestDto.getUsername())) {
       throw new BadRequestException("User already exists with username: " + registerUserRequestDto.getUsername());
@@ -73,5 +72,4 @@ public class UserService implements UserDetailsService {
 
     return new AuthResponseDto(accessToken, refreshToken, userResponseDto);
   }
-
 }
